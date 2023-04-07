@@ -3,4 +3,12 @@
     <string name="title_today">Сьогодні</string>
     <string name="title_week">Тиждень</string>
     <string name="title_map">Карта</string>
+    <string name="title_activity_maps">Деталі поточного місця</string>
+    <string name="default_info_title">Розташування за умовчанням</string>
+    <string name="default_info_snippet">Місця не знайдено, оскільки дозвіл на визначення місцезнаходження вимкнено.</string>
+    <string name="option_get_place">Отримати місце</string>
+    <string name="pick_place">Виберіть місце</string>
+    <string name="location_permission_denied">у дозволі на визначення місцезнаходження відмовлено</string>
+    <string name="permission_required_toast">потрібен дозвіл на визначення місцезнаходження</string>
+    <string name="permission_rationale_location">для коректної роботи додатку потрібен дозвіл на визначення місця знаходження</string>
 </resources>

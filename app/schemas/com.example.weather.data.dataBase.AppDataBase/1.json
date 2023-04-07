@@ -1,0 +1,221 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "d59778804308acaca0c1b131692edd52",
+    "entities": [
+      {
+        "tableName": "city",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`name` TEXT NOT NULL, `lat` REAL NOT NULL, `lon` REAL NOT NULL, PRIMARY KEY(`name`))",
+        "fields": [
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lat",
+            "columnName": "lat",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lon",
+            "columnName": "lon",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "name"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_city_name",
+            "unique": false,
+            "columnNames": [
+              "name"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_city_name` ON `${TABLE_NAME}` (`name`)"
+          },
+          {
+            "name": "index_city_lat",
+            "unique": false,
+            "columnNames": [
+              "lat"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_city_lat` ON `${TABLE_NAME}` (`lat`)"
+          },
+          {
+            "name": "index_city_lon",
+            "unique": false,
+            "columnNames": [
+              "lon"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_city_lon` ON `${TABLE_NAME}` (`lon`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "weather",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`auto_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `date` INTEGER NOT NULL, `city_name` TEXT NOT NULL, `sunrise` INTEGER NOT NULL, `sunset` INTEGER NOT NULL, `win_deg` INTEGER NOT NULL, `win_gust` REAL NOT NULL, `win_speed` REAL NOT NULL, `clouds` INTEGER NOT NULL, `temp` REAL NOT NULL, `feels_like` REAL NOT NULL, `pressure` INTEGER NOT NULL, `humidity` INTEGER NOT NULL, `temp_max` REAL NOT NULL, `temp_min` REAL NOT NULL, `sea_level` INTEGER NOT NULL, `grnd_level` INTEGER NOT NULL, FOREIGN KEY(`city_name`) REFERENCES `city`(`name`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "auto_id",
+            "columnName": "auto_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "city_name",
+            "columnName": "city_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sunrise",
+            "columnName": "sunrise",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sunset",
+            "columnName": "sunset",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "win_deg",
+            "columnName": "win_deg",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "win_gust",
+            "columnName": "win_gust",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "win_speed",
+            "columnName": "win_speed",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "clouds",
+            "columnName": "clouds",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "temp",
+            "columnName": "temp",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "feels_like",
+            "columnName": "feels_like",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pressure",
+            "columnName": "pressure",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "humidity",
+            "columnName": "humidity",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "temp_max",
+            "columnName": "temp_max",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "temp_min",
+            "columnName": "temp_min",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sea_level",
+            "columnName": "sea_level",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "grnd_level",
+            "columnName": "grnd_level",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "auto_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_weather_date",
+            "unique": false,
+            "columnNames": [
+              "date"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_weather_date` ON `${TABLE_NAME}` (`date`)"
+          },
+          {
+            "name": "index_weather_city_name",
+            "unique": false,
+            "columnNames": [
+              "city_name"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_weather_city_name` ON `${TABLE_NAME}` (`city_name`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "city",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "city_name"
+            ],
+            "referencedColumns": [
+              "name"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd59778804308acaca0c1b131692edd52')"
+    ]
+  }
+}

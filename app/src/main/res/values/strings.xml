@@ -3,4 +3,13 @@
     <string name="title_today">Today</string>
     <string name="title_week">Week</string>
     <string name="title_map">Map</string>
+
+    <string name="title_activity_maps">Current Place Details</string>
+    <string name="default_info_title">Default Location</string>
+    <string name="default_info_snippet">No places found, because location permission is disabled.</string>
+    <string name="option_get_place">Get place</string>
+    <string name="pick_place">Choose a place</string>
+    <string name="location_permission_denied">location permission denied</string>
+    <string name="permission_required_toast">location permission is required</string>
+    <string name="permission_rationale_location">for correct operation, the application needs permission to determine the location</string>
 </resources>
