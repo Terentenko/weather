@@ -6,7 +6,7 @@ import okhttp3.OkHttpClient
 
 class OkHttpConfig(
     val apikey:String= BuildConfig.OPEN_WEATHER_API_KEY,
-    val url:String="http://api.openweathermap.org/",
+    val url:String="https://api.openweathermap.org/",
     val client: OkHttpClient,
     val gson: Gson
     )

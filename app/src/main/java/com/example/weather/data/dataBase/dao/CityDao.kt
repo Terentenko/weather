@@ -10,7 +10,7 @@ interface CityDao{
     suspend fun addCity(city: CityDbEntity)
 
     @Delete()
-    suspend fun dropCityEntity(city: CityDbEntity)
+    suspend fun dropCity(city: CityDbEntity)
 
     @Query("SELECT * FROM city WHERE name =:cityName")
     suspend fun getCitiByLocationName(cityName: String): CityDbEntity?

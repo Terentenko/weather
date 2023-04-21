@@ -23,7 +23,7 @@ import com.example.weather.domain.model.CurrentWeather
 )
 data class CurrentWeatherDbEntity(
     @PrimaryKey(autoGenerate = true)
-    val auto_id: Int,
+    val auto_id: Int ,
 
     val date: Long,
     val city_name: String,
@@ -44,12 +44,11 @@ data class CurrentWeatherDbEntity(
     val grnd_level: Int
 
 
-)
-{
+) {
     fun toCurrentWeather(city: CityDbEntity) = CurrentWeather(
 
         date = date,
-        city =city.toCity(),
+        city = city.toCity(),
         sunrise = sunrise,
         sunset = sunset,
         winDeg = win_deg,
@@ -69,7 +68,7 @@ data class CurrentWeatherDbEntity(
 
     companion object {
         fun fromCurrentWeather(currentWeather: CurrentWeather) = CurrentWeatherDbEntity(
-            auto_id = -1,
+            auto_id = 0,
             date = currentWeather.date,
             city_name = currentWeather.city.name,
             sunrise = currentWeather.sunrise,

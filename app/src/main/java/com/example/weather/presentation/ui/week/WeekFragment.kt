@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.weather.databinding.FragmentWeekBinding
+import com.google.android.gms.maps.model.LatLng
 
 class WeekFragment : Fragment() {
 
@@ -31,6 +32,16 @@ class WeekFragment : Fragment() {
         val textView: TextView = binding.textDashboard
         weekViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
+
+            ////
+            binding.button.setOnClickListener {
+                weekViewModel.getWeekWeather(latLng = LatLng(
+                    50.4547,
+                    30.5238
+                )
+                )
+            }
+            ///////
         }
         return root
     }

@@ -12,8 +12,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import taptap.pub.Reaction
 
-class RepositoryNetworkImpl:RepositoryNetwork {
+class RepositoryNetworkImpl : RepositoryNetwork {
     private val config = OkHttpConfig(
         client = OkHttpClient.Builder().addInterceptor(
             HttpLoggingInterceptor()
@@ -23,57 +24,32 @@ class RepositoryNetworkImpl:RepositoryNetwork {
     )
     private val okHttpSource = OkHttpSource(config)
 
-    override suspend fun getCoordinatesByLocationName(cityName: String): Result<List<City>> =
-        withContext(Dispatchers.IO){
-            try {
-                val responseCoordinates =
-                    okHttpSource.getCoordinatesByLocationName(cityName)
-
-                return@withContext Result.success(
-                    responseCoordinates.toVolumeList())
-            } catch (e: Exception) {
-                return@withContext Result.failure(e)
+    override suspend fun getCoordinatesByLocationName(cityName: String): Reaction<List<City>> =
+        withContext(Dispatchers.IO) {
+            return@withContext Reaction.on {
+                okHttpSource.getCoordinatesByLocationName(cityName).toVolumeList()
             }
         }
 
 
-
-    override suspend fun getLocationNameByCoordinates(latLng: LatLng): Result<List<City>> =
-        withContext(Dispatchers.IO){
-            try {
-                val responseName =
-                    okHttpSource.getLocationNameByCoordinates(latLng)
-
-                return@withContext Result.success(
-                    responseName.toVolumeList())
-            } catch (e: Exception) {
-                return@withContext Result.failure(e)
+    override suspend fun getLocationNameByCoordinates(latLng: LatLng): Reaction<List<City>> =
+        withContext(Dispatchers.IO) {
+            return@withContext Reaction.on {
+                okHttpSource.getLocationNameByCoordinates(latLng).toVolumeList()
             }
         }
 
-    override suspend fun getCurrentWeatherData(latLng: LatLng): Result<CurrentWeather> =
-        withContext(Dispatchers.IO){
-            try {
-                val responseWeatherData =
-                    okHttpSource.getCurrentWeatherData(latLng)
-
-                return@withContext Result.success(
-                    responseWeatherData.toVolumeList())
-            } catch (e: Exception) {
-                return@withContext Result.failure(e)
+    override suspend fun getCurrentWeatherData(latLng: LatLng): Reaction<CurrentWeather> =
+        withContext(Dispatchers.IO) {
+            return@withContext Reaction.on {
+                okHttpSource.getCurrentWeatherData(latLng).toVolumeList()
             }
         }
 
-    override suspend fun getWeekWeatherForecast(latLng: LatLng): Result<Set<CurrentWeather>> =
-        withContext(Dispatchers.IO){
-            try {
-                val responseWeekWeather =
-                    okHttpSource.getWeekWeatherForecast(latLng)
-
-                return@withContext Result.success(
-                    responseWeekWeather.toVolumeSet())
-            } catch (e: Exception) {
-                return@withContext Result.failure(e)
+    override suspend fun getWeekWeatherForecast(latLng: LatLng): Reaction<Set<CurrentWeather>> =
+        withContext(Dispatchers.IO) {
+            return@withContext Reaction.on {
+                okHttpSource.getWeekWeatherForecast(latLng).toVolumeSet()
             }
         }
 }

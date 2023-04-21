@@ -3,10 +3,11 @@ package com.example.weather.domain.repository
 import com.example.weather.domain.model.City
 import com.example.weather.domain.model.CurrentWeather
 import com.google.android.gms.maps.model.LatLng
+import taptap.pub.Reaction
 
 interface RepositoryWeather {
-    suspend fun getCoordinatesByLocationName(cityName:String): Result<List<City>>
-    suspend fun getLocationNameByCoordinates(latLng: LatLng):Result<List<City>>
-    suspend fun getCurrentWeatherData(latLng: LatLng): Result<CurrentWeather>
-    suspend fun getWeekWeatherForecast(latLng: LatLng): Result<Set<CurrentWeather>>
+    suspend fun getCoordinatesByLocationName(cityName:String): Reaction<List<City>>
+    suspend fun getLocationNameByCoordinates(latLng: LatLng):Reaction<List<City>>
+    suspend fun getCurrentWeatherData(latLng: LatLng): Reaction<CurrentWeather>
+    suspend fun getWeekWeatherForecast(latLng: LatLng): Reaction<Set<CurrentWeather>>
 }

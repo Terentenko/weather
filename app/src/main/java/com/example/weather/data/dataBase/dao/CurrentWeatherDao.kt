@@ -8,7 +8,6 @@ interface CurrentWeatherDao{
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addCurrentWeather(currentWeatherDbEntity: CurrentWeatherDbEntity)
 
-
     @Query("SELECT * FROM weather WHERE city_name =:cityName")
     suspend fun getListCurrentWeather(cityName: String): List<CurrentWeatherDbEntity>?
 

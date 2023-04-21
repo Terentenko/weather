@@ -1,9 +1,14 @@
 package com.example.weather.presentation.ui.map
 
 import android.Manifest
+import android.app.AlertDialog
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,6 +43,13 @@ class MapsFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
         map = googleMap
         googleMap.setOnMyLocationButtonClickListener(this)
         googleMap.setOnMyLocationClickListener(this)
+        googleMap.setOnMapClickListener { latLng ->
+            // Створення об'єкту маркера з поточного місця клацання
+            val markerOptions = MarkerOptions().position(latLng)
+
+            // Додавання маркера на карту
+            map.addMarker(markerOptions)
+        }
         enableMyLocation(googleMap)
         mapViewModel.currentLocationCity.observe(viewLifecycleOwner) { currentLocationCity ->
 
@@ -70,7 +82,7 @@ class MapsFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
             // position on right bottom
             rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0)
             rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE)
-            rlp.setMargins(0, 0, 100, 200);
+            rlp.setMargins(0, 0, 30, 150);
             return
         }
 
@@ -102,8 +114,27 @@ class MapsFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
     }
 
     override fun onMyLocationButtonClick(): Boolean {
-        Toast.makeText(context, "MyLocation button clicked", Toast.LENGTH_SHORT)
-            .show()
+        val locationManager =
+            requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER).not()) {
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle(R.string.location_services_disabled)
+            builder.setMessage(R.string.enable_location_message)
+            builder.setPositiveButton("Settings") { _, _ ->
+                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                startActivity(intent)
+            }
+            builder.setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            builder.show()
+
+        } else {
+
+
+            Toast.makeText(context, "MyLocation button clicked", Toast.LENGTH_SHORT)
+                .show()
+        }
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false
@@ -112,6 +143,7 @@ class MapsFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
     override fun onMyLocationClick(location: Location) {
         Toast.makeText(context, "Current location:\n$location", Toast.LENGTH_LONG)
             .show()
+        sharedViewModel.city
 
     }
 
@@ -138,11 +170,7 @@ class MapsFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
     }
 
     companion object {
-        /**
-         * Request code for location permission request.
-         *
-         * @see .onRequestPermissionsResult
-         */
+
         internal const val LOCATION_PERMISSION_REQUEST_CODE = 21
     }
 

@@ -9,6 +9,10 @@ class SharedViewModel : ViewModel() {
     private val _city = MutableLiveData<City>()
     val city: LiveData<City> get() = _city
 
+
+
+
+
     fun setCiti(city: City) {
         _city.value = city
     }

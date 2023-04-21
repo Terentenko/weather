@@ -11,4 +11,9 @@
     <string name="location_permission_denied">у дозволі на визначення місцезнаходження відмовлено</string>
     <string name="permission_required_toast">потрібен дозвіл на визначення місцезнаходження</string>
     <string name="permission_rationale_location">для коректної роботи додатку потрібен дозвіл на визначення місця знаходження</string>
+    <string name="error_network">відсутня мережа</string>
+    <string name="error_data">дані відсутні</string>
+    <string name="location_services_disabled">Служби локації вимкнено</string>
+    <string name="enable_location_message">Увімкніть служби визначення місцезнаходження та GPS,
+        щоб використовувати цю функцію</string>
 </resources>
