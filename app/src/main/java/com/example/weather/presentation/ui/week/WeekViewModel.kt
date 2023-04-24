@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.weather.data.repository.RepositoryDataBaseImpl
 import com.example.weather.data.repository.RepositoryNetworkImpl
 import com.example.weather.data.repository.RepositoryWeatherImpl
+import com.example.weather.domain.model.CurrentWeather
 import com.example.weather.domain.useCase.WeatherUseCase
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.launch
@@ -21,10 +22,10 @@ class WeekViewModel(application: Application) : AndroidViewModel(application) {
             RepositoryDataBaseImpl(context = application)
         )
     private val weatherUseCase = WeatherUseCase(repositoryWeather = repositoryWeather)
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
+    private val listWeather = MutableLiveData<List<CurrentWeather>>().apply {
+     //   value = "This is dashboard Fragment"
     }
-    val text: LiveData<String> = _text
+    val listCurrentWeather: LiveData<List<CurrentWeather>> = listWeather
     init {
         getWeekWeather(latLng = LatLng(
             50.4547,
@@ -37,7 +38,7 @@ class WeekViewModel(application: Application) : AndroidViewModel(application) {
             weatherUseCase.getWeekWeatherForecast(
                 latLng = latLng
             ).handle(
-                success = { _text.value=it.toString() },
+                success = { listWeather.value=it.toList() },
                 error = { Log.d("test", "Error----> $it") }
             )
 

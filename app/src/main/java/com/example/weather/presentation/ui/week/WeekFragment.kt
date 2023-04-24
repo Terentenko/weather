@@ -4,14 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.weather.R
 import com.example.weather.databinding.FragmentWeekBinding
-import com.google.android.gms.maps.model.LatLng
+import com.example.weather.domain.model.CurrentWeather
+import com.example.weather.presentation.SharedViewModel
 
 class WeekFragment : Fragment() {
-
+    private lateinit var sharedViewModel: SharedViewModel
+    private lateinit var adapter: WeatherRecyclerAdapter
     private var _binding: FragmentWeekBinding? = null
 
     // This property is only valid between onCreateView and
@@ -25,25 +29,27 @@ class WeekFragment : Fragment() {
     ): View {
         val weekViewModel =
             ViewModelProvider(this).get(WeekViewModel::class.java)
-
+        sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         _binding = FragmentWeekBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        weekViewModel.listCurrentWeather.observe(viewLifecycleOwner) {
+            initRecycler(it)
 
-        val textView: TextView = binding.textDashboard
-        weekViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-
-            ////
-            binding.button.setOnClickListener {
-                weekViewModel.getWeekWeather(latLng = LatLng(
-                    50.4547,
-                    30.5238
-                )
-                )
-            }
-            ///////
         }
         return root
+    }
+
+    private fun initRecycler(item: List<CurrentWeather>) {
+        adapter = WeatherRecyclerAdapter(listener = object : WeatherRecyclerAdapter.Listener {
+            override fun onChooseItem(currentWeather: CurrentWeather) {
+                ////todo add currentWeather to sharedViewModel
+                view?.findNavController()?.navigate(R.id.action_navigation_week_to_navigation_today)
+            }
+        })
+        adapter.listItem = item
+        val layoutManager = LinearLayoutManager(context)
+        binding.recyclerWeather.layoutManager = layoutManager
+        binding.recyclerWeather.adapter = adapter
     }
 
     override fun onDestroyView() {

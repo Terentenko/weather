@@ -17,4 +17,5 @@
     <string name="location_services_disabled">Location services disabled</string>
     <string name="enable_location_message">Please enable location services and GPS in order to
         use this feature</string>
+    <string name="search">Search</string>
 </resources>

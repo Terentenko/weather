@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.weather.data.repository.RepositoryDataBaseImpl
 import com.example.weather.data.repository.RepositoryNetworkImpl
 import com.example.weather.data.repository.RepositoryWeatherImpl
+import com.example.weather.domain.model.CurrentWeather
 import com.example.weather.domain.useCase.WeatherUseCase
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.launch
@@ -22,10 +23,10 @@ class TodayViewModel(application: Application) : AndroidViewModel(application) {
         )
     private val weatherUseCase = WeatherUseCase(repositoryWeather = repositoryWeather)
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+    private val _currentWeatherMutableLiveData = MutableLiveData<CurrentWeather>().apply {
+
     }
-    val text: LiveData<String> = _text
+    val currentWeather: LiveData<CurrentWeather> = _currentWeatherMutableLiveData
 
     init {
         getWeather(latLng = LatLng(
@@ -39,7 +40,7 @@ class TodayViewModel(application: Application) : AndroidViewModel(application) {
              weatherUseCase.getCurrentWeatherData(
                 latLng = latLng
             ).handle(
-                success = { _text.value=it.toString() },
+                success = { _currentWeatherMutableLiveData.value=it },
                 error = { Log.d("test", "Error----> $it") }
             )
 

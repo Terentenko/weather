@@ -16,4 +16,5 @@
     <string name="location_services_disabled">Служби локації вимкнено</string>
     <string name="enable_location_message">Увімкніть служби визначення місцезнаходження та GPS,
         щоб використовувати цю функцію</string>
+    <string name="search">Пошук</string>
 </resources>

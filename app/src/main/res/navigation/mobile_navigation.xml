@@ -15,11 +15,19 @@
         android:id="@+id/navigation_week"
         android:name="com.example.weather.presentation.ui.week.WeekFragment"
         android:label="@string/title_week"
-        tools:layout="@layout/fragment_week" />
+        tools:layout="@layout/fragment_week" >
+        <action
+            android:id="@+id/action_navigation_week_to_navigation_today"
+            app:destination="@id/navigation_today" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_map"
         android:name="com.example.weather.presentation.ui.map.MapsFragment"
         android:label="@string/title_map"
-        tools:layout="@layout/fragment_maps" />
+        tools:layout="@layout/fragment_maps" >
+        <action
+            android:id="@+id/action_navigation_map_to_navigation_today"
+            app:destination="@id/navigation_today" />
+    </fragment>
 </navigation>

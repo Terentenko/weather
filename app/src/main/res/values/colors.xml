@@ -11,6 +11,7 @@
     <color name="red">#FF0000</color>
     <color name="light_blue">#03A9F4</color>
     <color name="dark_blue">#004767</color>
+    <color name="toolbar">#37E5E5E5</color>
 
 
 </resources>
