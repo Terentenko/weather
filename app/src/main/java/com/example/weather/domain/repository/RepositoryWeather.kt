@@ -8,6 +8,6 @@ import taptap.pub.Reaction
 interface RepositoryWeather {
     suspend fun getCoordinatesByLocationName(cityName:String): Reaction<List<City>>
     suspend fun getLocationNameByCoordinates(latLng: LatLng):Reaction<List<City>>
-    suspend fun getCurrentWeatherData(latLng: LatLng): Reaction<CurrentWeather>
+    suspend fun getCurrentWeatherData(latLng: LatLng): Reaction<List<CurrentWeather>>
     suspend fun getWeekWeatherForecast(latLng: LatLng): Reaction<Set<CurrentWeather>>
 }

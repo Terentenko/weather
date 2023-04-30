@@ -8,7 +8,8 @@ import com.example.weather.databinding.CurrentWeatherBinding
 import com.example.weather.domain.model.CurrentWeather
 
 
-class WeatherRecyclerAdapter(private val listener: Listener) : RecyclerView.Adapter<WeatherRecyclerAdapter.CurrentWeatherViewHolder>() {
+class WeatherRecyclerAdapter(private val listener: Listener) :
+    RecyclerView.Adapter<WeatherRecyclerAdapter.CurrentWeatherViewHolder>() {
     var listItem: List<CurrentWeather> = listOf()
         set(value) {
             field = value
@@ -25,21 +26,19 @@ class WeatherRecyclerAdapter(private val listener: Listener) : RecyclerView.Adap
     }
 
     override fun onBindViewHolder(holder: CurrentWeatherViewHolder, position: Int) {
-        val item = listItem [position]
+        val item = listItem[position]
         with(holder.binding) {
-            textDate.text = item.date.toString()
-            // Отримання поточної дати
-            //////!!!!!!!!
-                recyclerItem.setOnClickListener{listener.onChooseItem(item)}
-           textvValueManT.text = item.tempMax.toString()
+            textDate.text = CurrentWeather.turnUTCInto(item.date, "dd.MM HH:mm")
+            recyclerItem.setOnClickListener { listener.onChooseItem(item) }
+            textValueMaxT.text = item.tempMax.toString()
             textvValueManT.text = item.tempMin.toString()
-            textValueProcent.text = item.grndLevel .toString()
+            textValueProcent.text = item.grndLevel.toString()
 
 
-            if (item.clouds<0) {
+            if (item.clouds < 0) {
                 imageWeather.setImageResource(R.drawable.ic_cloud_24)
 
-            } else{
+            } else {
                 imageWeather.setImageResource(R.drawable.ic_sunny_24)
 
 
@@ -50,10 +49,13 @@ class WeatherRecyclerAdapter(private val listener: Listener) : RecyclerView.Adap
 
     override fun getItemCount(): Int =
         listItem.size
+
     interface Listener {
         fun onChooseItem(currentWeather: CurrentWeather)
     }
 
-    class CurrentWeatherViewHolder(val binding:CurrentWeatherBinding ) :
+    class CurrentWeatherViewHolder(val binding: CurrentWeatherBinding) :
         RecyclerView.ViewHolder(binding.root)
+
+
 }

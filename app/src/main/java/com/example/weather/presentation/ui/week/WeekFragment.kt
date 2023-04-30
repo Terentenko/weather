@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +15,7 @@ import com.example.weather.domain.model.CurrentWeather
 import com.example.weather.presentation.SharedViewModel
 
 class WeekFragment : Fragment() {
-    private lateinit var sharedViewModel: SharedViewModel
+    private val sharedViewModel: SharedViewModel by activityViewModels()
     private lateinit var adapter: WeatherRecyclerAdapter
     private var _binding: FragmentWeekBinding? = null
 
@@ -28,8 +29,12 @@ class WeekFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val weekViewModel =
-            ViewModelProvider(this).get(WeekViewModel::class.java)
-        sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
+            ViewModelProvider(this)[WeekViewModel::class.java]
+        sharedViewModel.city.observe(viewLifecycleOwner){
+            weekViewModel.getWeekWeather(latLng = it.latLng)
+        }
+
+
         _binding = FragmentWeekBinding.inflate(inflater, container, false)
         val root: View = binding.root
         weekViewModel.listCurrentWeather.observe(viewLifecycleOwner) {

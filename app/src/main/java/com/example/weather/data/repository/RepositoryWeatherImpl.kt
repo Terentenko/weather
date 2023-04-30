@@ -7,6 +7,9 @@ import com.example.weather.domain.repository.RepositoryWeather
 import com.google.android.gms.maps.model.LatLng
 import taptap.pub.Reaction
 import taptap.pub.fold
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class RepositoryWeatherImpl(
     private val repositoryNetwork: RepositoryNetwork,
@@ -29,8 +32,21 @@ class RepositoryWeatherImpl(
             }
         )
 
-    override suspend fun getCurrentWeatherData(latLng: LatLng): Reaction<CurrentWeather> =
-        repositoryNetwork.getCurrentWeatherData(latLng = latLng)
+    override suspend fun getCurrentWeatherData(latLng: LatLng): Reaction<List<CurrentWeather>> {
+
+        val currentDate =
+            SimpleDateFormat("dd", Locale.getDefault()).format(Date(System.currentTimeMillis()))
+                .toInt()
+        return Reaction.on {
+            getWeekWeatherWithNetworkAndSaveToDB(latLng = latLng).filter {
+                CurrentWeather.turnUTCInto(
+                    it.date,
+                    "dd"
+                ).toInt() == currentDate
+            }
+
+        }
+    }
 
 
     override suspend fun getWeekWeatherForecast(latLng: LatLng): Reaction<Set<CurrentWeather>> =

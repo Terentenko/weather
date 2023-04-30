@@ -1,5 +1,9 @@
 package com.example.weather.domain.model
 
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+
 data class CurrentWeather(
     val date: Long,
     val city: City,
@@ -21,4 +25,12 @@ data class CurrentWeather(
     val grndLevel: Int
 
 
-)
+) {
+    companion object {
+
+
+        fun turnUTCInto(timeMillis: Long, format: String): String =
+            SimpleDateFormat(format, Locale.getDefault()).format(Date(timeMillis * 1000L))
+
+    }
+}

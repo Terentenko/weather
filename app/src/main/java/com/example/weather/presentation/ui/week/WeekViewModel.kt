@@ -26,12 +26,7 @@ class WeekViewModel(application: Application) : AndroidViewModel(application) {
      //   value = "This is dashboard Fragment"
     }
     val listCurrentWeather: LiveData<List<CurrentWeather>> = listWeather
-    init {
-        getWeekWeather(latLng = LatLng(
-            50.4547,
-            30.5238
-        ))
-    }
+
 
     fun getWeekWeather(latLng: LatLng) {
         viewModelScope.launch {

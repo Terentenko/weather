@@ -17,8 +17,10 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import com.example.weather.R
+import com.example.weather.domain.model.City
 import com.example.weather.presentation.PermissionUtils
 import com.example.weather.presentation.SharedViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -31,15 +33,13 @@ import com.google.android.gms.maps.model.MarkerOptions
 class MapsFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
     GoogleMap.OnMyLocationClickListener,
     OnMapReadyCallback {
-    private lateinit var sharedViewModel: SharedViewModel
+    private val sharedViewModel: SharedViewModel by activityViewModels()
     lateinit var map: GoogleMap
     private var mapView: View? = null
     override fun onMapReady(googleMap: GoogleMap) {
     }
 
     private val callback = OnMapReadyCallback { googleMap ->
-        val mapViewModel =
-            ViewModelProvider(this)[MapViewModel::class.java]
         map = googleMap
         googleMap.setOnMyLocationButtonClickListener(this)
         googleMap.setOnMyLocationClickListener(this)
@@ -49,9 +49,11 @@ class MapsFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
 
             // Додавання маркера на карту
             map.addMarker(markerOptions)
+            sharedViewModel.setCiti(city = City("", latLng = latLng))
+            view?.findNavController()?.navigate(R.id.action_navigation_map_to_navigation_today)
         }
         enableMyLocation(googleMap)
-        mapViewModel.currentLocationCity.observe(viewLifecycleOwner) { currentLocationCity ->
+        sharedViewModel.city.observe(viewLifecycleOwner) { currentLocationCity ->
 
             googleMap.addMarker(
                 MarkerOptions().position(currentLocationCity.latLng).title(currentLocationCity.name)
@@ -153,7 +155,6 @@ class MapsFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         sharedViewModel.permission.observe(viewLifecycleOwner) {
             enableMyLocation(map)
         }

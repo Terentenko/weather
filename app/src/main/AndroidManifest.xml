@@ -36,6 +36,9 @@
         <meta-data
             android:name="OPEN_WEATHER_API_KEY"
             android:value="${OPEN_WEATHER_API_KEY}" />
+        <meta-data
+            android:name="android.app.searchable"
+            android:resource="@xml/searchable"/>
     </application>
 
 </manifest>

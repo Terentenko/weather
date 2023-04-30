@@ -23,16 +23,13 @@ class TodayViewModel(application: Application) : AndroidViewModel(application) {
         )
     private val weatherUseCase = WeatherUseCase(repositoryWeather = repositoryWeather)
 
-    private val _currentWeatherMutableLiveData = MutableLiveData<CurrentWeather>().apply {
+    private val _currentWeatherMutableLiveData = MutableLiveData<List<CurrentWeather>>().apply {
 
     }
-    val currentWeather: LiveData<CurrentWeather> = _currentWeatherMutableLiveData
+    val currentWeather: LiveData<List<CurrentWeather>> = _currentWeatherMutableLiveData
 
     init {
-        getWeather(latLng = LatLng(
-            50.4547,
-            30.5238
-        ))
+
     }
 
      fun getWeather(latLng: LatLng) {
@@ -47,6 +44,5 @@ class TodayViewModel(application: Application) : AndroidViewModel(application) {
         }
 
     }
-
 
 }

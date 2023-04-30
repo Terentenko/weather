@@ -3,9 +3,10 @@ package com.example.weather.presentation
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
+
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.weather.R
@@ -13,12 +14,11 @@ import com.example.weather.databinding.ActivityMainBinding
 import com.example.weather.presentation.ui.map.MapsFragment
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var sharedViewModel: SharedViewModel
+    private  val sharedViewModel: SharedViewModel  by viewModels()
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
         installSplashScreen()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
