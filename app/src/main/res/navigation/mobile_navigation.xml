@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_navigation_week_to_navigation_today"
             app:destination="@id/navigation_today" />
+        <action
+            android:id="@+id/action_navigation_week_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
 
     <fragment
@@ -30,4 +33,9 @@
             android:id="@+id/action_navigation_map_to_navigation_today"
             app:destination="@id/navigation_today" />
     </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.weather.presentation.ui.detail.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" />
 </navigation>

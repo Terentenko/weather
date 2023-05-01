@@ -12,7 +12,7 @@ class WeatherRecyclerAdapter(private val listener: Listener) :
     RecyclerView.Adapter<WeatherRecyclerAdapter.CurrentWeatherViewHolder>() {
     var listItem: List<CurrentWeather> = listOf()
         set(value) {
-            field = value
+            field = value.toList()
             notifyDataSetChanged()
 
         }
@@ -29,6 +29,7 @@ class WeatherRecyclerAdapter(private val listener: Listener) :
         val item = listItem[position]
         with(holder.binding) {
             textDate.text = CurrentWeather.turnUTCInto(item.date, "dd.MM")
+            textDate2.text=CurrentWeather.turnUTCIntoDay(item.date)
             recyclerItem.setOnClickListener { listener.onChooseItem(item) }
             textValueMaxt.text = item.tempMax.toString()
             textValueMinT.text = item.tempMin.toString()

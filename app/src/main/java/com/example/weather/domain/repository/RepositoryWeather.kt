@@ -11,4 +11,5 @@ interface RepositoryWeather {
     suspend fun getCurrentWeatherData(latLng: LatLng): Reaction<List<CurrentWeather>>
     suspend fun getWeekWeatherForecast(latLng: LatLng): Reaction<Set<CurrentWeather>>
     suspend fun getSelectedCity():City
+    suspend fun getCurrentWeatherDay(latLng: LatLng,day:Int): Reaction<List<CurrentWeather>>
 }

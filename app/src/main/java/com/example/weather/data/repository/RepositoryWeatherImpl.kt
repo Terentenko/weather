@@ -14,7 +14,7 @@ import java.util.Locale
 class RepositoryWeatherImpl(
     private val repositoryNetwork: RepositoryNetwork,
     private val repositoryDataBase: RepositoryDataBase,
-    private  val repositorySharedPref: RepositorySharedPref
+    private val repositorySharedPref: RepositorySharedPref
 ) : RepositoryWeather {
 
     override suspend fun getCoordinatesByLocationName(cityName: String): Reaction<List<City>> =
@@ -54,11 +54,22 @@ class RepositoryWeatherImpl(
         Reaction.on { getWeekWeatherWithNetworkAndSaveToDB(latLng = latLng) }
 
 
-
-
-
     override suspend fun getSelectedCity(): City =
         repositorySharedPref.getSelectedCity()
+
+    override suspend fun getCurrentWeatherDay(
+        latLng: LatLng,
+        day: Int
+    ): Reaction<List<CurrentWeather>> =
+        Reaction.on {
+            getWeekWeatherWithNetworkAndSaveToDB(latLng = latLng).filter {
+                CurrentWeather.turnUTCInto(
+                    it.date,
+                    "dd"
+                ).toInt() == day
+            }
+
+        }
 
 
 

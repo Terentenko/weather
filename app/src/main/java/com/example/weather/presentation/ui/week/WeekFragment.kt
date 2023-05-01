@@ -47,10 +47,11 @@ class WeekFragment : Fragment() {
     private fun initRecycler(item: List<CurrentWeather>) {
         adapter = WeatherRecyclerAdapter(listener = object : WeatherRecyclerAdapter.Listener {
             override fun onChooseItem(currentWeather: CurrentWeather) {
-                view?.findNavController()?.navigate(R.id.action_navigation_week_to_navigation_today)
+                sharedViewModel.setDate(CurrentWeather.turnUTCInto(currentWeather.date,"dd").toInt())
+                view?.findNavController()?.navigate(R.id.action_navigation_week_to_detailFragment)
             }
         })
-        adapter.listItem = item
+        adapter.listItem = CurrentWeather.averageWeather(item)
         val layoutManager = LinearLayoutManager(context)
         binding.recyclerWeather.layoutManager = layoutManager
         binding.recyclerWeather.adapter = adapter

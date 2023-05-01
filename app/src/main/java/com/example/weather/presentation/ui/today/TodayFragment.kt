@@ -43,10 +43,6 @@ class TodayFragment : Fragment(), MenuProvider {
     private lateinit var placesClient: PlacesClient
     private val todayViewModel: TodayViewModel by activityViewModels()
     private val sharedViewModel: SharedViewModel by activityViewModels()
-
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -177,6 +173,7 @@ class TodayFragment : Fragment(), MenuProvider {
 
        with(binding.currentWeatherToday) {
            textDate.text = turnUTCInto(currentWeather.date, "dd.MM")
+           textDate2.text=CurrentWeather.turnUTCIntoDay(currentWeather.date)
            textValueMaxt.text = currentWeather.tempMax.toString()
            textValueMinT.text = currentWeather.tempMin.toString()
            textValueWinSpeed.text = currentWeather.winSpeed.toString()
