@@ -13,7 +13,8 @@ import java.util.Locale
 
 class RepositoryWeatherImpl(
     private val repositoryNetwork: RepositoryNetwork,
-    private val repositoryDataBase: RepositoryDataBase
+    private val repositoryDataBase: RepositoryDataBase,
+    private  val repositorySharedPref: RepositorySharedPref
 ) : RepositoryWeather {
 
     override suspend fun getCoordinatesByLocationName(cityName: String): Reaction<List<City>> =
@@ -53,11 +54,20 @@ class RepositoryWeatherImpl(
         Reaction.on { getWeekWeatherWithNetworkAndSaveToDB(latLng = latLng) }
 
 
+
+
+
+    override suspend fun getSelectedCity(): City =
+        repositorySharedPref.getSelectedCity()
+
+
+
     private suspend fun getWeekWeatherWithNetworkAndSaveToDB(latLng: LatLng): Set<CurrentWeather> {
         repositoryNetwork.getWeekWeatherForecast(latLng = latLng).fold(
             success = {
-                repositoryDataBase.dropWeather()
+                repositoryDataBase.dropWeather() // todo recycling for removal around the city !!!
                 repositoryDataBase.saveWeather(it.toList())
+                repositorySharedPref.saveSelectedCity(city = it.last().city)
                 return it
             },
             error = {

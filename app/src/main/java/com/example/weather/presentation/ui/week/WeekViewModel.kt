@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.weather.data.repository.RepositoryDataBaseImpl
 import com.example.weather.data.repository.RepositoryNetworkImpl
+import com.example.weather.data.repository.RepositorySharedPref
 import com.example.weather.data.repository.RepositoryWeatherImpl
 import com.example.weather.domain.model.CurrentWeather
 import com.example.weather.domain.useCase.WeatherUseCase
@@ -19,11 +20,12 @@ class WeekViewModel(application: Application) : AndroidViewModel(application) {
     private val repositoryWeather =
         RepositoryWeatherImpl(
             RepositoryNetworkImpl(),
-            RepositoryDataBaseImpl(context = application)
+            RepositoryDataBaseImpl(context = application),
+            RepositorySharedPref(context = application)
         )
     private val weatherUseCase = WeatherUseCase(repositoryWeather = repositoryWeather)
     private val listWeather = MutableLiveData<List<CurrentWeather>>().apply {
-     //   value = "This is dashboard Fragment"
+        //   value = "This is dashboard Fragment"
     }
     val listCurrentWeather: LiveData<List<CurrentWeather>> = listWeather
 
@@ -33,7 +35,7 @@ class WeekViewModel(application: Application) : AndroidViewModel(application) {
             weatherUseCase.getWeekWeatherForecast(
                 latLng = latLng
             ).handle(
-                success = { listWeather.value=it.toList() },
+                success = { listWeather.value = it.toList() },
                 error = { Log.d("test", "Error----> $it") }
             )
 

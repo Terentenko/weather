@@ -98,5 +98,7 @@ dependencies {
     kapt 'com.google.dagger:hilt-android-compiler:2.45'
     //instead of the class Result
     implementation "io.github.taptappub:reaction:1.0.5"
+    // diagram
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
 }

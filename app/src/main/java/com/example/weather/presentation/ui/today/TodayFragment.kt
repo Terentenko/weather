@@ -2,6 +2,7 @@ package com.example.weather.presentation.ui.today
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,7 +24,12 @@ import com.example.weather.BuildConfig
 import com.example.weather.R
 import com.example.weather.databinding.FragmentTodayBinding
 import com.example.weather.domain.model.City
+import com.example.weather.domain.model.CurrentWeather
+import com.example.weather.domain.model.CurrentWeather.Companion.turnUTCInto
 import com.example.weather.presentation.SharedViewModel
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.PlacesClient
@@ -55,9 +61,11 @@ class TodayFragment : Fragment(), MenuProvider {
         }
         val textView: TextView = binding.textHome
         todayViewModel.currentWeather.observe(viewLifecycleOwner) {
-            textView.text = it.toString()
+
             if (it.isNullOrEmpty().not()) {
+                textView.text = it[0].toString()
                 binding.toolbar.title = it[0].city.name
+                initChart(it)
             }
         }
         val toolbar = binding.toolbar
@@ -126,5 +134,31 @@ class TodayFragment : Fragment(), MenuProvider {
                 }
             }
         }
+
+    private fun initChart(currentWeather: List<CurrentWeather>) {
+        val chart = binding.chart
+        val weatherMax = currentWeather.map {
+            Entry(turnUTCInto(it.date, "hh").toFloat(),
+                it.tempMax.toFloat())
+        }
+        val weatherMin = currentWeather.map {
+            Entry(turnUTCInto(it.date, "hh").toFloat(), it.tempMin.toFloat())
+        }
+
+
+        val dataSet = LineDataSet(weatherMax, "Sine Wave")
+        dataSet.color = Color.RED
+        dataSet.valueTextColor = Color.BLACK
+        val lineData = LineData(dataSet)
+        chart.data = lineData
+        chart.axisLeft.textColor = Color.BLACK
+        chart.xAxis.textColor = Color.BLACK
+        chart.legend.textColor = Color.BLACK
+        chart.setTouchEnabled(true)
+        chart.setPinchZoom(true)
+       // chart.description.text = "Sine Wave"
+        chart.description.textColor = Color.BLACK
+        chart.invalidate()
+    }
 }
 

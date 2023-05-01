@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.weather.data.repository.RepositoryDataBaseImpl
 import com.example.weather.data.repository.RepositoryNetworkImpl
+import com.example.weather.data.repository.RepositorySharedPref
 import com.example.weather.data.repository.RepositoryWeatherImpl
 import com.example.weather.domain.model.CurrentWeather
 import com.example.weather.domain.useCase.WeatherUseCase
@@ -19,7 +20,8 @@ class TodayViewModel(application: Application) : AndroidViewModel(application) {
     private val repositoryWeather =
         RepositoryWeatherImpl(
             RepositoryNetworkImpl(),
-            RepositoryDataBaseImpl(context = application)
+            RepositoryDataBaseImpl(context = application),
+            RepositorySharedPref(context = application)
         )
     private val weatherUseCase = WeatherUseCase(repositoryWeather = repositoryWeather)
 
@@ -32,12 +34,12 @@ class TodayViewModel(application: Application) : AndroidViewModel(application) {
 
     }
 
-     fun getWeather(latLng: LatLng) {
+    fun getWeather(latLng: LatLng) {
         viewModelScope.launch {
-             weatherUseCase.getCurrentWeatherData(
+            weatherUseCase.getCurrentWeatherData(
                 latLng = latLng
             ).handle(
-                success = { _currentWeatherMutableLiveData.value=it },
+                success = { _currentWeatherMutableLiveData.value = it },
                 error = { Log.d("test", "Error----> $it") }
             )
 
