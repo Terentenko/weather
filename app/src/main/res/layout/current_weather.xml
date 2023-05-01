@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/recyclerItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -12,117 +11,273 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/text_date2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="@string/default_text"
+
+            android:textColor="#000000"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/text_date"
+            app:layout_constraintStart_toStartOf="@+id/text_date"
+            app:layout_constraintTop_toBottomOf="@+id/text_date" />
 
         <TextView
             android:id="@+id/text_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:text="-"
+            android:text="@string/default_text"
             android:textColor="#000000"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textTitleMinT"
-
-            app:layout_constraintStart_toEndOf="@+id/image_weather"
-            app:layout_constraintTop_toTopOf="@+id/text_max_t"
-            app:layout_constraintVertical_bias="0.583" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/text_value_max_t"
+            android:id="@+id/text_value_t"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLength="8"
-            android:paddingStart="2dp"
-            android:paddingEnd="2dp"
-            android:text="-"
+            android:layout_marginEnd="1dp"
+            android:maxLength="4"
+            android:text="@string/default_text"
             android:textColor="#000000"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/textv_value_man_t"
-            app:layout_constraintStart_toEndOf="@+id/text_max_t"
-            app:layout_constraintTop_toTopOf="@+id/text_max_t" />
-
-        <TextView
-            android:id="@+id/textv_value_man_t"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLength="8"
-            android:paddingStart="2dp"
-            android:paddingEnd="2dp"
-            android:text="-"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textTitleMinT"
-            app:layout_constraintStart_toEndOf="@+id/textTitleMinT"
-            app:layout_constraintTop_toBottomOf="@+id/text_value_max_t" />
-
-        <TextView
-            android:id="@+id/textValueProcent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:paddingStart="2dp"
-            android:paddingEnd="2dp"
-            android:maxLength="6"
-            android:text="-"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textv_value_man_t"
-            app:layout_constraintEnd_toStartOf="@+id/textTitleProcent"
-            app:layout_constraintTop_toTopOf="@+id/text_value_max_t" />
-
-        <TextView
-            android:id="@+id/textTitleProcent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:maxLength="6"
-            android:text="-"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textv_value_man_t"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/text_value_max_t"
-            app:layout_constraintVertical_bias="0.518" />
-
-        <TextView
-            android:id="@+id/text_max_t"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:paddingEnd="2dp"
-            android:text="max t"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/textTitleMinT"
-            app:layout_constraintEnd_toEndOf="@+id/textTitleMinT"
-            app:layout_constraintStart_toStartOf="@+id/textTitleMinT"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/textTitleMinT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingEnd="2dp"
-            android:text="min  t   "
-            android:textColor="#000000"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/textv_value_man_t"
-            app:layout_constraintStart_toEndOf="@+id/text_date"
-            app:layout_constraintTop_toBottomOf="@+id/text_max_t" />
+            app:layout_constraintBottom_toBottomOf="@+id/image_weather"
+            app:layout_constraintEnd_toStartOf="@+id/title_c"
+            app:layout_constraintTop_toTopOf="@+id/image_weather" />
 
         <ImageView
             android:id="@+id/image_weather"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="32dp"
+            app:layout_constraintEnd_toStartOf="@+id/text_value_maxt"
+            app:layout_constraintTop_toTopOf="@+id/text_date"
+            app:srcCompat="@drawable/ic_default_24" />
+
+        <TextView
+            android:id="@+id/text_value_maxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/default_text"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/text_value_min_t"
+            app:layout_constraintEnd_toStartOf="@+id/title_c2"
+            app:layout_constraintTop_toTopOf="@+id/image_weather" />
+
+        <TextView
+            android:id="@+id/text_value_min_t"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/default_text"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_weather"
+            app:layout_constraintEnd_toStartOf="@+id/title_c3"
+            app:layout_constraintTop_toBottomOf="@+id/text_value_maxt" />
+
+        <TextView
+            android:id="@+id/title_sunrise_sunset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sunrise_sunset"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/text_date"
+            app:layout_constraintTop_toBottomOf="@+id/image_weather" />
+
+        <TextView
+            android:id="@+id/text_value_sunrise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            app:layout_constraintBottom_toBottomOf="@+id/text_date"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/text_date"
-            app:srcCompat="@drawable/ic_default_24" />
+            android:text="@string/default_text"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/title_sunrise_sunset"
+            app:layout_constraintStart_toEndOf="@+id/title_sunrise_sunset"
+            app:layout_constraintTop_toTopOf="@+id/title_sunrise_sunset" />
+
+        <TextView
+            android:id="@+id/text_value_sunset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:text="@string/default_text"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/title_sunrise_sunset"
+            app:layout_constraintStart_toEndOf="@+id/text_value_sunrise_sunset2"
+            app:layout_constraintTop_toTopOf="@+id/title_sunrise_sunset" />
+
+        <TextView
+            android:id="@+id/text_value_sunrise_sunset2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:text="/"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/title_sunrise_sunset"
+            app:layout_constraintStart_toEndOf="@+id/text_value_sunrise"
+            app:layout_constraintTop_toTopOf="@+id/title_sunrise_sunset" />
+
+        <TextView
+            android:id="@+id/title_win_speed"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+
+            android:text="@string/win_speed"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/title_sunrise_sunset"
+            app:layout_constraintTop_toBottomOf="@+id/title_sunrise_sunset" />
+
+        <TextView
+            android:id="@+id/text_value__win_speed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/default_text"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/title_win_speed"
+            app:layout_constraintStart_toStartOf="@+id/text_value_sunrise"
+            app:layout_constraintTop_toTopOf="@+id/title_win_speed" />
+
+        <TextView
+            android:id="@+id/title_humidity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/humidity"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/title_win_speed"
+            app:layout_constraintTop_toBottomOf="@+id/title_win_speed" />
+
+        <TextView
+            android:id="@+id/title_km_h"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:maxLength="6"
+            android:text="@string/km_h"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_value__win_speed"
+            app:layout_constraintStart_toEndOf="@+id/text_value__win_speed"
+            app:layout_constraintTop_toTopOf="@+id/text_value__win_speed" />
+
+        <TextView
+            android:id="@+id/text_value__humidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/default_text"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/title_humidity"
+            app:layout_constraintStart_toStartOf="@+id/text_value__win_speed"
+            app:layout_constraintTop_toTopOf="@+id/title_humidity"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/title_c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:maxLength="6"
+            android:text="@string/u00b0c"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_value_t"
+            app:layout_constraintEnd_toStartOf="@+id/image_weather" />
+
+        <TextView
+            android:id="@+id/title_c2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:maxLength="6"
+            android:text="@string/u00b0c"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_value_maxt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/text_value_maxt" />
+
+        <TextView
+            android:id="@+id/title_c3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:maxLength="6"
+            android:text="@string/u00b0c"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_value_min_t"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_value_maxt" />
+
+        <TextView
+            android:id="@+id/title_procent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:maxLength="6"
+            android:text="%"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_value__humidity"
+            app:layout_constraintStart_toEndOf="@+id/text_value__humidity"
+            app:layout_constraintTop_toTopOf="@+id/text_value__humidity" />
+
+        <TextView
+            android:id="@+id/text_value__presure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/default_text"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/title_presure"
+            app:layout_constraintStart_toStartOf="@+id/text_value__win_speed"
+            app:layout_constraintTop_toTopOf="@+id/title_presure" />
+
+        <TextView
+            android:id="@+id/title_presure"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/presure"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/title_win_speed"
+            app:layout_constraintTop_toBottomOf="@+id/title_humidity" />
+
+        <TextView
+            android:id="@+id/title_hpa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="@string/hpa"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_value__presure"
+            app:layout_constraintStart_toEndOf="@+id/text_value__presure"
+            app:layout_constraintTop_toTopOf="@+id/text_value__presure" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

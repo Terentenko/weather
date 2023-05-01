@@ -47,7 +47,6 @@ class WeekFragment : Fragment() {
     private fun initRecycler(item: List<CurrentWeather>) {
         adapter = WeatherRecyclerAdapter(listener = object : WeatherRecyclerAdapter.Listener {
             override fun onChooseItem(currentWeather: CurrentWeather) {
-                ////todo add currentWeather to sharedViewModel
                 view?.findNavController()?.navigate(R.id.action_navigation_week_to_navigation_today)
             }
         })

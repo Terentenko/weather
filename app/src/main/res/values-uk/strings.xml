@@ -17,4 +17,14 @@
     <string name="enable_location_message">Увімкніть служби визначення місцезнаходження та GPS,
         щоб використовувати цю функцію</string>
     <string name="search">Пошук</string>
+    <string name="default_text">-</string>
+    <string name="max_temp">Максимальна температура</string>
+    <string name="min_temp">Мінымальна температура</string>
+    <string name="sunrise_sunset">Схід/Захід сонця</string>
+    <string name="win_speed">Швидкість вітру</string>
+    <string name="humidity">Вологість</string>
+    <string name="km_h">km/h</string>
+    <string name="u00b0c">°C</string>
+    <string name="presure">Тиск</string>
+    <string name="hpa">hPa</string>
 </resources>

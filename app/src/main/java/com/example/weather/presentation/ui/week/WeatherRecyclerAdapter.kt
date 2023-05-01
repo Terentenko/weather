@@ -28,13 +28,16 @@ class WeatherRecyclerAdapter(private val listener: Listener) :
     override fun onBindViewHolder(holder: CurrentWeatherViewHolder, position: Int) {
         val item = listItem[position]
         with(holder.binding) {
-            textDate.text = CurrentWeather.turnUTCInto(item.date, "dd.MM HH:mm")
+            textDate.text = CurrentWeather.turnUTCInto(item.date, "dd.MM")
             recyclerItem.setOnClickListener { listener.onChooseItem(item) }
-            textValueMaxT.text = item.tempMax.toString()
-            textvValueManT.text = item.tempMin.toString()
-            textValueProcent.text = item.grndLevel.toString()
-
-
+            textValueMaxt.text = item.tempMax.toString()
+            textValueMinT.text = item.tempMin.toString()
+            textValueWinSpeed.text = item.winSpeed.toString()
+            textValueSunrise.text = CurrentWeather.turnUTCInto(item.sunrise, "HH:mm")
+            textValueSunset.text = CurrentWeather.turnUTCInto(item.sunset, "HH:mm")
+            textValueT.text=item.temp.toString()
+            textValuePresure.text=item.pressure.toString()
+            textValueHumidity.text=item.humidity.toString()
             if (item.clouds < 0) {
                 imageWeather.setImageResource(R.drawable.ic_cloud_24)
 

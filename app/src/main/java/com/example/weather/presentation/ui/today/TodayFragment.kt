@@ -11,7 +11,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -27,6 +26,7 @@ import com.example.weather.domain.model.City
 import com.example.weather.domain.model.CurrentWeather
 import com.example.weather.domain.model.CurrentWeather.Companion.turnUTCInto
 import com.example.weather.presentation.SharedViewModel
+import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
@@ -59,11 +59,11 @@ class TodayFragment : Fragment(), MenuProvider {
         sharedViewModel.city.observe(viewLifecycleOwner) {
             todayViewModel.getWeather(latLng = it.latLng)
         }
-        val textView: TextView = binding.textHome
+
         todayViewModel.currentWeather.observe(viewLifecycleOwner) {
 
             if (it.isNullOrEmpty().not()) {
-                textView.text = it[0].toString()
+                initCurrentWeatherToday(currentWeather= it[0])
                 binding.toolbar.title = it[0].city.name
                 initChart(it)
             }
@@ -136,29 +136,68 @@ class TodayFragment : Fragment(), MenuProvider {
         }
 
     private fun initChart(currentWeather: List<CurrentWeather>) {
-        val chart = binding.chart
-        val weatherMax = currentWeather.map {
-            Entry(turnUTCInto(it.date, "hh").toFloat(),
-                it.tempMax.toFloat())
-        }
-        val weatherMin = currentWeather.map {
-            Entry(turnUTCInto(it.date, "hh").toFloat(), it.tempMin.toFloat())
-        }
+        val chart = binding.diagramToday.chart
+        val dataSetMaxT = LineDataSet(currentWeather.map {
+            Entry(
+                turnUTCInto(it.date, "HH").toFloat(),
+                it.tempMax.toFloat()
+            )
+        }, "max t")
+        dataSetMaxT.color = Color.GREEN
+        dataSetMaxT.valueTextColor = Color.GREEN
+        val dataSetMinT = LineDataSet(currentWeather.map {
+            Entry(
+                turnUTCInto(it.date, "HH").toFloat(),
+                it.tempMin.toFloat()
+            )
+        }, "min t")
+        dataSetMinT.color = Color.BLUE
+        dataSetMinT.valueTextColor = Color.BLUE
 
-
-        val dataSet = LineDataSet(weatherMax, "Sine Wave")
-        dataSet.color = Color.RED
-        dataSet.valueTextColor = Color.BLACK
-        val lineData = LineData(dataSet)
+        val lineData = LineData(dataSetMaxT,dataSetMinT)
         chart.data = lineData
-        chart.axisLeft.textColor = Color.BLACK
-        chart.xAxis.textColor = Color.BLACK
+
+        chart.description.isEnabled = false
+        chart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+        chart.xAxis.setDrawGridLines(false)
+        chart.axisLeft.setDrawGridLines(false)
+        chart.axisRight.setDrawGridLines(false)
+
+       // chart.axisLeft.textColor = Color.BLACK
+       // chart.xAxis.textColor = Color.BLACK
         chart.legend.textColor = Color.BLACK
         chart.setTouchEnabled(true)
         chart.setPinchZoom(true)
-       // chart.description.text = "Sine Wave"
+        // chart.description.text = "Sine Wave"
         chart.description.textColor = Color.BLACK
         chart.invalidate()
     }
+
+   private fun initCurrentWeatherToday(currentWeather: CurrentWeather){
+
+       with(binding.currentWeatherToday) {
+           textDate.text = turnUTCInto(currentWeather.date, "dd.MM")
+           textValueMaxt.text = currentWeather.tempMax.toString()
+           textValueMinT.text = currentWeather.tempMin.toString()
+           textValueWinSpeed.text = currentWeather.winSpeed.toString()
+           textValueSunrise.text = turnUTCInto(currentWeather.sunrise, "HH:mm")
+           textValueSunset.text = turnUTCInto(currentWeather.sunset, "HH:mm")
+           textValueT.text=currentWeather.temp.toString()
+           textValuePresure.text=currentWeather.pressure.toString()
+           textValueHumidity.text=currentWeather.humidity.toString()
+
+
+           if (currentWeather.clouds < 0) {
+               imageWeather.setImageResource(R.drawable.ic_cloud_24)
+
+           } else {
+               imageWeather.setImageResource(R.drawable.ic_sunny_24)
+
+
+           }
+
+       }
+    }
+
 }
 

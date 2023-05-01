@@ -2,12 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.today.TodayFragment">
+    tools:context=".presentation.ui.detail.DetailFragment">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbar_detail"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/toolbar"
@@ -18,27 +19,23 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <include
-        android:id="@+id/current_weather_today"
+        android:id="@+id/current_weather_detail"
         layout="@layout/current_weather"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_detail" />
 
     <include
-        android:id="@+id/diagram_today"
         layout="@layout/diagram"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/current_weather_today" />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/current_weather_detail" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

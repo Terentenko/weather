@@ -18,4 +18,15 @@
     <string name="enable_location_message">Please enable location services and GPS in order to
         use this feature</string>
     <string name="search">Search</string>
+    <string name="max_temp">Maximal temperature</string>
+    <string name="min_temp">Minimal temperature</string>
+    <string name="default_text">-</string>
+    <string name="sunrise_sunset">Sunrise/sunset</string>
+    <string name="win_speed">Win speed</string>
+    <string name="humidity">Humidity</string>
+    <string name="km_h">km/h</string>
+    <string name="u00b0c">°C</string>
+    <string name="presure">Presure</string>
+    <string name="hpa">hPa</string>
+    <!-- TODO: Remove or change this placeholder text -->
 </resources>
