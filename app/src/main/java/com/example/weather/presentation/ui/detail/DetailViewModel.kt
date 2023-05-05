@@ -24,9 +24,7 @@ class DetailViewModel(application: Application) :AndroidViewModel(application) {
             RepositorySharedPref(context = application)
         )
     private val weatherUseCase = WeatherUseCase(repositoryWeather = repositoryWeather)
-    private val listWeather = MutableLiveData<List<CurrentWeather>>().apply {
-
-    }
+    private val listWeather = MutableLiveData<List<CurrentWeather>>()
     val listCurrentWeather: LiveData<List<CurrentWeather>> = listWeather
 
 

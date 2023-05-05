@@ -24,10 +24,8 @@ class TodayViewModel(application: Application) : AndroidViewModel(application) {
             RepositorySharedPref(context = application)
         )
     private val weatherUseCase = WeatherUseCase(repositoryWeather = repositoryWeather)
-
-    private val _currentWeatherMutableLiveData = MutableLiveData<List<CurrentWeather>>().apply {
-
-    }
+    val dataLoading: MutableLiveData<Boolean> = MutableLiveData()
+    private val _currentWeatherMutableLiveData = MutableLiveData<List<CurrentWeather>>()
     val currentWeather: LiveData<List<CurrentWeather>> = _currentWeatherMutableLiveData
 
     init {
@@ -36,13 +34,16 @@ class TodayViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getWeather(latLng: LatLng) {
         viewModelScope.launch {
+            dataLoading.value=true
             weatherUseCase.getCurrentWeatherData(
                 latLng = latLng
             ).handle(
                 success = { _currentWeatherMutableLiveData.value = it },
-                error = { Log.d("test", "Error----> $it") }
-            )
+                error = { Log.d("test", "Error----> $it")
 
+                }
+            )
+            dataLoading.postValue(false)
         }
 
     }

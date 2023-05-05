@@ -11,6 +11,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -56,13 +57,16 @@ class TodayFragment : Fragment(), MenuProvider {
             todayViewModel.getWeather(latLng = it.latLng)
         }
 
-        todayViewModel.currentWeather.observe(viewLifecycleOwner) {
-
+        todayViewModel.currentWeather.observe(viewLifecycleOwner) { it ->
             if (it.isNullOrEmpty().not()) {
                 initCurrentWeatherToday(currentWeather= it[0])
                 binding.toolbar.title = it[0].city.name
                 initChart(it)
             }
+        }
+        todayViewModel.dataLoading.observe(viewLifecycleOwner){
+            if(it) binding.progressBar.visibility = ProgressBar.VISIBLE
+            else binding.progressBar.visibility = ProgressBar.GONE
         }
         val toolbar = binding.toolbar
         (activity as AppCompatActivity).setSupportActionBar(toolbar)

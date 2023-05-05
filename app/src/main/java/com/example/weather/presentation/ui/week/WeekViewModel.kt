@@ -24,13 +24,13 @@ class WeekViewModel(application: Application) : AndroidViewModel(application) {
             RepositorySharedPref(context = application)
         )
     private val weatherUseCase = WeatherUseCase(repositoryWeather = repositoryWeather)
-    private val listWeather = MutableLiveData<List<CurrentWeather>>().apply {
-        //   value = "This is dashboard Fragment"
-    }
+    private val listWeather = MutableLiveData<List<CurrentWeather>>()
+    val dataLoading: MutableLiveData<Boolean> = MutableLiveData()
     val listCurrentWeather: LiveData<List<CurrentWeather>> = listWeather
 
 
     fun getWeekWeather(latLng: LatLng) {
+        dataLoading.value = true
         viewModelScope.launch {
             weatherUseCase.getWeekWeatherForecast(
                 latLng = latLng
@@ -38,7 +38,7 @@ class WeekViewModel(application: Application) : AndroidViewModel(application) {
                 success = { listWeather.value = it.toList() },
                 error = { Log.d("test", "Error----> $it") }
             )
-
+            dataLoading.postValue(false)
         }
 
     }

@@ -16,8 +16,8 @@ class RepositorySharedPref(context: Context) {
                 "Kyiv"
             )!!,
             latLng = LatLng(
-                sharedPreference.getFloat(CITY_LAT,50.4547F).toDouble(),
-                sharedPreference.getFloat(CITY_LNG,30.5238F).toDouble()
+                sharedPreference.getString(CITY_LAT,"50.4547f")!!.replace(",", ".").toDouble(),
+                sharedPreference.getString(CITY_LNG,"30.5238f")!!.replace(",", ".").toDouble()
             )
         )
 
@@ -25,8 +25,8 @@ class RepositorySharedPref(context: Context) {
     fun saveSelectedCity(city: City): Boolean {
         val editor = sharedPreference.edit()
         editor.putString(CITY_NAME, city.name)
-        editor.putFloat(CITY_LNG, city.latLng.longitude.toFloat())
-        editor.putFloat(CITY_LAT, city.latLng.latitude.toFloat())
+        editor.putString(CITY_LNG, String.format("%.4f", city.latLng.longitude))
+        editor.putString(CITY_LAT, String.format("%.4f", city.latLng.latitude))
         return editor.commit()
 
     }
