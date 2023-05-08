@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "d59778804308acaca0c1b131692edd52",
+    "identityHash": "94965309bccda95d224d431d306a8cad",
     "entities": [
       {
         "tableName": "city",
@@ -66,7 +66,7 @@
       },
       {
         "tableName": "weather",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`auto_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `date` INTEGER NOT NULL, `city_name` TEXT NOT NULL, `sunrise` INTEGER NOT NULL, `sunset` INTEGER NOT NULL, `win_deg` INTEGER NOT NULL, `win_gust` REAL NOT NULL, `win_speed` REAL NOT NULL, `clouds` INTEGER NOT NULL, `temp` REAL NOT NULL, `feels_like` REAL NOT NULL, `pressure` INTEGER NOT NULL, `humidity` INTEGER NOT NULL, `temp_max` REAL NOT NULL, `temp_min` REAL NOT NULL, `sea_level` INTEGER NOT NULL, `grnd_level` INTEGER NOT NULL, FOREIGN KEY(`city_name`) REFERENCES `city`(`name`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`auto_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `date` INTEGER NOT NULL, `city_name` TEXT NOT NULL, `sunrise` INTEGER NOT NULL, `sunset` INTEGER NOT NULL, `win_deg` INTEGER NOT NULL, `win_gust` REAL NOT NULL, `win_speed` REAL NOT NULL, `clouds` TEXT NOT NULL, `temp` REAL NOT NULL, `feels_like` REAL NOT NULL, `pressure` INTEGER NOT NULL, `humidity` INTEGER NOT NULL, `temp_max` REAL NOT NULL, `temp_min` REAL NOT NULL, `sea_level` INTEGER NOT NULL, `grnd_level` INTEGER NOT NULL, FOREIGN KEY(`city_name`) REFERENCES `city`(`name`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "auto_id",
@@ -119,7 +119,7 @@
           {
             "fieldPath": "clouds",
             "columnName": "clouds",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -215,7 +215,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd59778804308acaca0c1b131692edd52')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '94965309bccda95d224d431d306a8cad')"
     ]
   }
 }

@@ -16,6 +16,7 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.squareup.picasso.Picasso
 
 class DetailFragment : Fragment() {
     private val detailViewModel: DetailViewModel by activityViewModels()
@@ -120,14 +121,14 @@ class DetailFragment : Fragment() {
             textValueHumidity.text = currentWeather.humidity.toString()
 
 
-            if (currentWeather.clouds < 0) {
-                imageWeather.setImageResource(R.drawable.ic_cloud_24)
+            val movieUrl = "${CurrentWeather.URL_ICON_BEGINNING}${currentWeather.clouds}${CurrentWeather.URL_ICON_END}"
+            Picasso.get()
+                .load(movieUrl)
+                .resize(50, 50)
+                .placeholder(R.drawable.ic_default_24)
+                .into(imageWeather)
 
-            } else {
-                imageWeather.setImageResource(R.drawable.ic_sunny_24)
 
-
-            }
 
         }
     }

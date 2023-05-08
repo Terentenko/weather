@@ -15,7 +15,7 @@ data class CurrentWeather(
     val winDeg: Int,
     val winGust: Double,
     val winSpeed: Double,
-    val clouds: Int,
+    val clouds: String,
 
     val temp: Double,
     val feelsLike: Double,
@@ -30,7 +30,8 @@ data class CurrentWeather(
 ) {
     companion object {
 
-
+        const val URL_ICON_BEGINNING = "https://openweathermap.org/img/wn/"
+        const val URL_ICON_END = "@2x.png"
         fun turnUTCInto(timeMillis: Long, format: String): String =
             SimpleDateFormat(format, Locale.getDefault()).format(Date(timeMillis * 1000L))
 
@@ -56,7 +57,7 @@ data class CurrentWeather(
                 winDeg = list.sumOf { it.winDeg } / list.size,
                 winGust = list.sumOf { it.winGust } / list.size,
                 winSpeed = list.sumOf { it.winSpeed } / list.size,
-                clouds = list.sumOf { it.clouds } / list.size,
+                clouds = list[0].clouds,
                 temp = list.sumOf { it.temp } / list.size,
                 feelsLike = list.sumOf { it.feelsLike } / list.size,
                 pressure = list.sumOf { it.pressure } / list.size,

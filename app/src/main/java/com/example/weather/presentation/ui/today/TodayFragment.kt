@@ -36,6 +36,7 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+import com.squareup.picasso.Picasso
 
 
 class TodayFragment : Fragment(), MenuProvider {
@@ -59,13 +60,13 @@ class TodayFragment : Fragment(), MenuProvider {
 
         todayViewModel.currentWeather.observe(viewLifecycleOwner) { it ->
             if (it.isNullOrEmpty().not()) {
-                initCurrentWeatherToday(currentWeather= it[0])
+                initCurrentWeatherToday(currentWeather = it[0])
                 binding.toolbar.title = it[0].city.name
                 initChart(it)
             }
         }
-        todayViewModel.dataLoading.observe(viewLifecycleOwner){
-            if(it) binding.progressBar.visibility = ProgressBar.VISIBLE
+        todayViewModel.dataLoading.observe(viewLifecycleOwner) {
+            if (it) binding.progressBar.visibility = ProgressBar.VISIBLE
             else binding.progressBar.visibility = ProgressBar.GONE
         }
         val toolbar = binding.toolbar
@@ -123,13 +124,19 @@ class TodayFragment : Fragment(), MenuProvider {
                 val data: Intent? = result.data
                 data?.let {
                     val place = Autocomplete.getPlaceFromIntent(data)
-                    todayViewModel.getWeather(latLng = place.latLng)
-                    sharedViewModel.setCiti(
-                        City(
-                            name = place.name,
-                            latLng = place.latLng
+                    place.latLng?.let { it1 -> todayViewModel.getWeather(latLng = it1) }
+                    place.name?.let { it1 ->
+                        place.latLng?.let { it2 ->
+                            City(
+                                name = it1,
+                                latLng = it2
+                            )
+                        }
+                    }?.let { it2 ->
+                        sharedViewModel.setCiti(
+                            it2
                         )
-                    )
+                    }
                     Log.i("Test", "Place: ${place.name}, ${place.id},${place.latLng}")
                 }
             }
@@ -154,7 +161,7 @@ class TodayFragment : Fragment(), MenuProvider {
         dataSetMinT.color = Color.BLUE
         dataSetMinT.valueTextColor = Color.BLUE
 
-        val lineData = LineData(dataSetMaxT,dataSetMinT)
+        val lineData = LineData(dataSetMaxT, dataSetMinT)
         chart.data = lineData
 
         chart.description.isEnabled = false
@@ -163,8 +170,8 @@ class TodayFragment : Fragment(), MenuProvider {
         chart.axisLeft.setDrawGridLines(false)
         chart.axisRight.setDrawGridLines(false)
 
-       // chart.axisLeft.textColor = Color.BLACK
-       // chart.xAxis.textColor = Color.BLACK
+        // chart.axisLeft.textColor = Color.BLACK
+        // chart.xAxis.textColor = Color.BLACK
         chart.legend.textColor = Color.BLACK
         chart.setTouchEnabled(true)
         chart.setPinchZoom(true)
@@ -173,31 +180,30 @@ class TodayFragment : Fragment(), MenuProvider {
         chart.invalidate()
     }
 
-   private fun initCurrentWeatherToday(currentWeather: CurrentWeather){
+    private fun initCurrentWeatherToday(currentWeather: CurrentWeather) {
 
-       with(binding.currentWeatherToday) {
-           textDate.text = turnUTCInto(currentWeather.date, "dd.MM")
-           textDate2.text=CurrentWeather.turnUTCIntoDay(currentWeather.date)
-           textValueMaxt.text = currentWeather.tempMax.toString()
-           textValueMinT.text = currentWeather.tempMin.toString()
-           textValueWinSpeed.text = currentWeather.winSpeed.toString()
-           textValueSunrise.text = turnUTCInto(currentWeather.sunrise, "HH:mm")
-           textValueSunset.text = turnUTCInto(currentWeather.sunset, "HH:mm")
-           textValueT.text=currentWeather.temp.toString()
-           textValuePresure.text=currentWeather.pressure.toString()
-           textValueHumidity.text=currentWeather.humidity.toString()
+        with(binding.currentWeatherToday) {
+            textDate.text = turnUTCInto(currentWeather.date, "dd.MM")
+            textDate2.text = CurrentWeather.turnUTCIntoDay(currentWeather.date)
+            textValueMaxt.text = currentWeather.tempMax.toString()
+            textValueMinT.text = currentWeather.tempMin.toString()
+            textValueWinSpeed.text = currentWeather.winSpeed.toString()
+            textValueSunrise.text = turnUTCInto(currentWeather.sunrise, "HH:mm")
+            textValueSunset.text = turnUTCInto(currentWeather.sunset, "HH:mm")
+            textValueT.text = currentWeather.temp.toString()
+            textValuePresure.text = currentWeather.pressure.toString()
+            textValueHumidity.text = currentWeather.humidity.toString()
+
+            val movieUrl =
+                "${CurrentWeather.URL_ICON_BEGINNING}${currentWeather.clouds}${CurrentWeather.URL_ICON_END}"
+            Picasso.get()
+                .load(movieUrl)
+                .resize(50, 50)
+                .placeholder(R.drawable.ic_default_24)
+                .into(imageWeather)
 
 
-           if (currentWeather.clouds < 0) {
-               imageWeather.setImageResource(R.drawable.ic_cloud_24)
-
-           } else {
-               imageWeather.setImageResource(R.drawable.ic_sunny_24)
-
-
-           }
-
-       }
+        }
     }
 
 }

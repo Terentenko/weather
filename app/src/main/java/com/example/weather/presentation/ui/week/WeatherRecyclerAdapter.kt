@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.weather.R
 import com.example.weather.databinding.CurrentWeatherBinding
 import com.example.weather.domain.model.CurrentWeather
+import com.squareup.picasso.Picasso
 
 
 class WeatherRecyclerAdapter(private val listener: Listener) :
@@ -13,6 +14,7 @@ class WeatherRecyclerAdapter(private val listener: Listener) :
     var listItem: List<CurrentWeather> = listOf()
         set(value) {
             field = value.toList()
+            // todo change to comparator
             notifyDataSetChanged()
 
         }
@@ -39,14 +41,12 @@ class WeatherRecyclerAdapter(private val listener: Listener) :
             textValueT.text=item.temp.toString()
             textValuePresure.text=item.pressure.toString()
             textValueHumidity.text=item.humidity.toString()
-            if (item.clouds < 0) {
-                imageWeather.setImageResource(R.drawable.ic_cloud_24)
-
-            } else {
-                imageWeather.setImageResource(R.drawable.ic_sunny_24)
-
-
-            }
+            val movieUrl = "${CurrentWeather.URL_ICON_BEGINNING}${item.clouds}${CurrentWeather.URL_ICON_END}"
+            Picasso.get()
+                .load(movieUrl)
+                .resize(50, 50)
+                .placeholder(R.drawable.ic_default_24)
+                .into(imageWeather)
 
         }
     }

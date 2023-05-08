@@ -33,7 +33,7 @@ data class CurrentWeatherDbEntity(
     val win_deg: Int,
     val win_gust: Double,
     val win_speed: Double,
-    val clouds: Int,
+    val clouds: String,
     val temp: Double,
     val feels_like: Double,
     val pressure: Int,
