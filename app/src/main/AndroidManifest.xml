@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppSplash"
         tools:targetApi="31"
+        android:name=".di.App"
       >
 
         <activity

@@ -4,7 +4,6 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
-
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.fragment.NavHostFragment
@@ -12,7 +11,9 @@ import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.weather.R
 import com.example.weather.databinding.ActivityMainBinding
 import com.example.weather.presentation.ui.map.MapsFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private  val sharedViewModel: SharedViewModel  by viewModels()
     private lateinit var binding: ActivityMainBinding

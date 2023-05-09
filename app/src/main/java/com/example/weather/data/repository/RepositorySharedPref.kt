@@ -3,9 +3,12 @@ package com.example.weather.data.repository
 import android.content.Context
 import com.example.weather.domain.model.City
 import com.google.android.gms.maps.model.LatLng
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 
-
-class RepositorySharedPref(context: Context) {
+@Singleton
+class RepositorySharedPref @Inject constructor(@ApplicationContext context: Context) {
     private val sharedPreference =
         context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
 

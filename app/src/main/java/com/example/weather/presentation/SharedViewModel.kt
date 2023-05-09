@@ -1,24 +1,19 @@
 package com.example.weather.presentation
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.weather.data.repository.RepositoryDataBaseImpl
-import com.example.weather.data.repository.RepositoryNetworkImpl
-import com.example.weather.data.repository.RepositorySharedPref
-import com.example.weather.data.repository.RepositoryWeatherImpl
 import com.example.weather.domain.model.City
+import com.example.weather.domain.useCase.WeatherUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SharedViewModel(application: Application) : AndroidViewModel(application) {
-    private val repositoryWeather =
-        RepositoryWeatherImpl(
-            RepositoryNetworkImpl(),
-            RepositoryDataBaseImpl(context = application),
-            RepositorySharedPref(context = application)
-        )
+@HiltViewModel
+class SharedViewModel @Inject constructor(private val repositoryWeather: WeatherUseCase) :
+    ViewModel() {
     private val _city = MutableLiveData<City>()
     val city: LiveData<City> get() = _city
     private val _permission = MutableLiveData<Boolean>()
@@ -37,9 +32,11 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     fun setPermission(permission: Boolean) {
         _permission.value = permission
     }
+
     fun setDate(date: Int) {
         _date.value = date
     }
+
     private fun getSelectedCity() {
         viewModelScope.launch {
             _city.value = repositoryWeather.getSelectedCity()

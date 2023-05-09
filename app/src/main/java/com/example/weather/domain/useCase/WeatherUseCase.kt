@@ -18,6 +18,9 @@ class WeatherUseCase(private val repositoryWeather: RepositoryWeather) {
     suspend fun getWeekWeatherForecast(latLng: LatLng) =
         repositoryWeather.getWeekWeatherForecast(latLng = latLng)
 
-    suspend fun getCurrentWeatherDay(latLng: LatLng,day:Int)=
-    repositoryWeather.getCurrentWeatherDay(latLng=latLng, day = day)
+    suspend fun getCurrentWeatherDay(latLng: LatLng, day: Int) =
+        repositoryWeather.getCurrentWeatherDay(latLng = latLng, day = day)
+
+    suspend fun getSelectedCity() =
+        repositoryWeather.getSelectedCity()
 }
