@@ -4,11 +4,13 @@ import com.google.gson.Gson
 import kotlinx.coroutines.suspendCancellableCoroutine
 import okhttp3.*
 import java.io.IOException
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.resume
 
-
-open class BaseOkHttpSource(config: OkHttpConfig) {
+@Singleton
+open class BaseOkHttpSource @Inject constructor(config: OkHttpConfig) {
     val gson: Gson = config.gson
     val client: OkHttpClient = config.client
     suspend fun Call.suspendEnqueue(): Response {

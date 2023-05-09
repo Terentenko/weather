@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -18,6 +17,7 @@ import com.example.weather.presentation.SharedViewModel
 
 class WeekFragment : Fragment() {
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private val weekViewModel :WeekViewModel by activityViewModels()
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private lateinit var adapter: WeatherRecyclerAdapter
     private var _binding: FragmentWeekBinding? = null
@@ -31,8 +31,7 @@ class WeekFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val weekViewModel =
-            ViewModelProvider(this)[WeekViewModel::class.java]
+
         sharedViewModel.city.observe(viewLifecycleOwner) {
             weekViewModel.getWeekWeather(latLng = it.latLng)
         }

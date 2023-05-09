@@ -6,9 +6,11 @@ import com.example.weather.data.okHttp.jsonObject.geocoding.coordinates.Response
 import com.example.weather.data.okHttp.jsonObject.geocoding.name.ResponseNameByLocstionCoordinates
 import com.google.android.gms.maps.model.LatLng
 import okhttp3.Request
+import javax.inject.Inject
+import javax.inject.Singleton
 
-
-class OkHttpSource(private val config: OkHttpConfig) : BaseOkHttpSource(config) {
+@Singleton
+class OkHttpSource @Inject constructor(private val config: OkHttpConfig) : BaseOkHttpSource(config) {
     suspend fun getCoordinatesByLocationName(name: String): ResponseCoordinatesByLocationName {
         val request = Request.Builder()
             .get()

@@ -2,27 +2,18 @@ package com.example.weather.data.repository
 
 import com.example.weather.data.mappers.toVolumeList
 import com.example.weather.data.mappers.toVolumeSet
-import com.example.weather.data.okHttp.OkHttpConfig
 import com.example.weather.data.okHttp.OkHttpSource
 import com.example.weather.domain.model.City
 import com.example.weather.domain.model.CurrentWeather
 import com.google.android.gms.maps.model.LatLng
-import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import taptap.pub.Reaction
+import javax.inject.Inject
 
-class RepositoryNetworkImpl : RepositoryNetwork {
-    private val config = OkHttpConfig(
-        client = OkHttpClient.Builder().addInterceptor(
-            HttpLoggingInterceptor()
-                .setLevel(HttpLoggingInterceptor.Level.BODY) // be for log work okHTTp
-        ).build(),
-        gson = Gson(),
-    )
-    private val okHttpSource = OkHttpSource(config)
+class RepositoryNetworkImpl@Inject constructor(private val okHttpSource: OkHttpSource) :
+    RepositoryNetwork {
+
 
     override suspend fun getCoordinatesByLocationName(cityName: String): Reaction<List<City>> =
         withContext(Dispatchers.IO) {
